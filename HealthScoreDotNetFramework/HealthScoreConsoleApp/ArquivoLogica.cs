@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 
 namespace HealthScoreConsoleApp
 {
@@ -59,16 +58,16 @@ namespace HealthScoreConsoleApp
 			var listaPerfis = Enumerable.Range(1, intPerfis).ToList();
 			var healthScoreFinal = 0;
 
+			var rnd1 = new Random();
+			var rnd2 = new Random();
+
 			while (listaPerfis.Count > 0)
 			{
-				//Tive que adicionar esse sleep pois sem ele todos os números aleatórios eram gerados identicos
-				Thread.Sleep(100);
-
 				var proximoPerfil = false;
 
 				var perfilId = listaPerfis.First();
 
-				var numeroAleatorio = new Random().Next(0, 10);
+				var numeroAleatorio = rnd1.Next(0, 10);
 
 				var healthScoreInicial = intBaseHealthScore + numeroAleatorio;
 
@@ -78,7 +77,7 @@ namespace HealthScoreConsoleApp
 					nem correrá o risco de sortear o número 5 e ter apenas 3 eventos na planilha o que retornaria null
 				*/
 
-				var idAleatorio = new Random().Next(1, listaEventos.Count + 1);
+				var idAleatorio = rnd2.Next(1, listaEventos.Count + 1);
 				EventoModel evento = listaEventos.FirstOrDefault(x => x.Id == idAleatorio);
 
 				if ("Death".Equals(evento.NameEvent, StringComparison.CurrentCultureIgnoreCase))
